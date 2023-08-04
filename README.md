@@ -11,3 +11,7 @@ This package provides tools and set of instructions for evaluating whether these
 ### Why not provide a package for µP?
 Implementing a generic package for applying the µP initialization is hard. It's difficult to do it in a model agnostic way. There are often many caveats; for example: you can't use the *[Table 3](https://arxiv.org/pdf/2203.03466.pdf)* version of µP when implementing a Transformer with weights shared between the input embedding and the output readout layer. But if you're using the Table 8 or Table 9 variant, you need to modify your model with multipliers! Hence, with any package or implementation, there will be an onus on the user to modify their model to use µP correctly.
 
+Also, you might want to go about implementing µP for different model differently:
+- If you're working with a pre-existing, already well-tuned, architecture like ConvNext, you might want to match initialisation/learning-rates to those used in the literature _at a particular width_. This is the approach [microsoft mup package](https://github.com/microsoft/mup) is taking.
+- If you're working with a new or modified architecture, you likely don't care about matching intialisations/learning-rates at a particular width – just that the scaling in width is correct.
+
